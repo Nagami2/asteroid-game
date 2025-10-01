@@ -8,6 +8,10 @@ def main():
     # create the screen
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    # create a clock object and a dt variable
+    clock = pygame.time.Clock()
+    dt = 0
+
     # game loop
     while True:
         # event handling
@@ -19,6 +23,9 @@ def main():
 
         # update the display
         pygame.display.flip() # refresh the screen to show the new drawings
+
+        # tick the clock to limit the FPS and get delta time
+        dt = clock.tick(60) / 1000 # converting milliseconds to seconds 
 
 
 if __name__ == "__main__":
