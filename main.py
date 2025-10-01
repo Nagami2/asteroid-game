@@ -48,7 +48,7 @@ def main():
         for asteroid in asteroids:
             for shot in shots:
                 if asteroid.collides_with(shot):
-                    asteroid.kill()  # remove the asteroid
+                    asteroid.split()  # call split method, instead of removing it
                     shot.kill()      # remove the shot
 
         # remove shots that are off-screen to prevent memory leaks
