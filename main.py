@@ -1,30 +1,32 @@
 import pygame
 from constants import *
 
-def main():
-    # initialize pygame
-    pygame.init()
+from player import Player
 
-    # create the screen
+def main():
+    pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-    # create a clock object and a dt variable
     clock = pygame.time.Clock()
     dt = 0
 
-    # game loop
+    # create a player object in the middle of the screen
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
     while True:
-        # event handling
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return # exit the main function, which ends the game
-        # drawing
-        screen.fill("black") # fill the screen with a black color
+        
+        player.update(dt) # calling player's update method each frame
 
-        # update the display
+        # drawing comes after updating
+        screen.fill("black") # fill the screen with a black color
+        player.draw(screen)
+
         pygame.display.flip() # refresh the screen to show the new drawings
 
-        # tick the clock to limit the FPS and get delta time
+        # tick the clock to limit the FPS and get delta time for next frame
         dt = clock.tick(60) / 1000 # converting milliseconds to seconds 
 
 
