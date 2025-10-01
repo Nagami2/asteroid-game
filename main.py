@@ -10,6 +10,13 @@ def main():
     clock = pygame.time.Clock()
     dt = 0
 
+    # create drawable and updatable groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    #setting the containers for the player class, before creating any player instance
+    Player.containers = (updatable, drawable)
+
     # create a player object in the middle of the screen
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
@@ -18,11 +25,15 @@ def main():
             if event.type == pygame.QUIT:
                 return # exit the main function, which ends the game
         
-        player.update(dt) # calling player's update method each frame
+        # player.update(dt) # calling player's update method each frame
+        updatable.update(dt) # update all updatable objects
 
         # drawing comes after updating
         screen.fill("black") # fill the screen with a black color
-        player.draw(screen)
+        # player.draw(screen)
+        # loop through all drawables
+        for thing in drawable:
+            thing.draw(screen)
 
         pygame.display.flip() # refresh the screen to show the new drawings
 

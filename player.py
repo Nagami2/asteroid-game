@@ -1,5 +1,5 @@
 from circleshape import CircleShape
-from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED
+from constants import PLAYER_RADIUS, PLAYER_TURN_SPEED, PLAYER_SPEED
 
 import pygame
 
@@ -10,6 +10,10 @@ class Player(CircleShape):
 
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
+
+    def move(self, dt):
+        forward = pygame.Vector2(0,1).rotate(self.rotation)
+        self.position += forward * PLAYER_SPEED * dt
     
     # update method to check for key presses
     def update(self, dt):
@@ -20,7 +24,13 @@ class Player(CircleShape):
             self.rotate(-dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
-            
+
+        # handle movement
+        if keys[pygame.K_w]:
+            self.move(dt)
+        if keys[pygame.K_s]:
+            self.move(-dt)
+
     # method to calculate the triangle's points
     def triangle(self):
         forward = pygame.Vector2(0,1).rotate(self.rotation)
